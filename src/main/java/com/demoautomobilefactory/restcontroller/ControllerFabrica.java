@@ -23,8 +23,17 @@ public class ControllerFabrica {
 	public ModeloServices modeloServices;
 	
     @GetMapping("test")
-    public ResponseEntity<?> Test() {
+    public ResponseEntity<?> Test() throws InterruptedException, ExecutionException {
 
+    	Modelo modelo = new Modelo();
+    	modelo.setIdmodelo("1000");
+    	modelo.setDescripcion("prueba");
+    	modelo.setFecha("16/03/2021");
+    	modelo.setPrecio1(25000);
+    	modelo.setPrecio2(30000);
+    	
+    	modeloServices.add(modelo);
+    	
             return new ResponseEntity<>("paso", HttpStatus.OK);
     }	
 	
