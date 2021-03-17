@@ -48,6 +48,11 @@ public class Modelo {
 	public void setPrecio2(Number precio2) {
 		this.precio2 = precio2;
 	}
+	@Override
+	public String toString() {
+		return "Modelo [idmodelo=" + idmodelo + ", descripcion=" + descripcion + ", fecha=" + fecha + ", precio1="
+				+ precio1 + ", precio2=" + precio2 + "]";
+	}
     
     
     

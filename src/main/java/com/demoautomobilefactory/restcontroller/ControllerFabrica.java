@@ -30,9 +30,9 @@ public class ControllerFabrica {
 	
     
     @PostMapping("addmodelo")
-    public ResponseEntity<?> AddModelo(@RequestBody Modelo modelo) throws InterruptedException, ExecutionException {
+    public String AddModelo(@RequestBody Modelo modelo) throws InterruptedException, ExecutionException {
 
-            return new ResponseEntity<>(modeloServices.add(modelo), HttpStatus.OK);
+            return modeloServices.add(modelo).toString();
     }	
 	
 }
