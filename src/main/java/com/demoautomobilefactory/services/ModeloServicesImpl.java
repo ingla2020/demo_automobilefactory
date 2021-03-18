@@ -23,6 +23,25 @@ public class ModeloServicesImpl implements ModeloServices{
 	@Autowired
 	private Firestore firestore;
 
+	@Autowired
+	ModeloServices modeloServices;
+	
+	ApiFuture<WriteResult> writeResult;
+	
+	
+	public ModeloServicesImpl(ModelRepo modeloRepository, Firestore firestore) {
+		this.modeloRepository = modeloRepository;
+		this.firestore = firestore;
+	}
+
+	public void setWriteResult(ApiFuture<WriteResult> writeResult) {
+		this.writeResult = writeResult;
+	}
+
+	public void setModeloServices(ModeloServices modeloServices) {
+		this.modeloServices = modeloServices;
+	}
+
 	@Override
 	public Mono<Modelo> add(Modelo modelo)  {
 		return modeloRepository.save(modelo);
@@ -42,11 +61,11 @@ public class ModeloServicesImpl implements ModeloServices{
 	@Override
 	public void delete(String id) throws Exception {
 		
-		get(id);
+		modeloServices.get(id);
 		
 		//modeloRepository.deleteById(id);
 		
-		ApiFuture<WriteResult> writeResult = firestore.collection("Modelo").document(id).delete();
+		writeResult = firestore.collection("Modelo").document(id).delete();
 		
 	}
 

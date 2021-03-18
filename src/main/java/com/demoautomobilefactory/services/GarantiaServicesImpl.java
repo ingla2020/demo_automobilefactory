@@ -22,6 +22,28 @@ public class GarantiaServicesImpl implements GarantiaServices{
 	@Autowired
 	private Firestore firestore;	
 
+	@Autowired
+	GarantiaServices garantiaServices;
+
+    private ApiFuture<WriteResult> futurewrite;
+
+
+	public GarantiaServicesImpl(GarantiaRepo garantiaRepo, Firestore firestore) {
+		this.garantiaRepo = garantiaRepo;
+		this.firestore = firestore;
+	}
+
+	
+	public void setGarantiaServices(GarantiaServices garantiaServices) {
+		this.garantiaServices = garantiaServices;
+	}
+
+
+	public void setFuturewrite(ApiFuture<WriteResult> futurewrite) {
+		this.futurewrite = futurewrite;
+	}
+
+
 	@Override
 	public Mono<Garantia> add(Garantia model)  {
 		return garantiaRepo.save(model);
@@ -42,9 +64,9 @@ public class GarantiaServicesImpl implements GarantiaServices{
 	@Override
 	public void delete(String id) throws Exception {
 		
-		get(id);
+		garantiaServices.get(id);
 		
-		ApiFuture<WriteResult> writeResult = firestore.collection("Garantia").document(id).delete();
+		futurewrite = firestore.collection("Garantia").document(id).delete();
 	}
 
 	@Override

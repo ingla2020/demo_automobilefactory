@@ -34,6 +34,32 @@ public class FacturaServicioImpl implements FacturaServicio{
 	
 	@Autowired
 	private Firestore firestore;
+	
+
+	ApiFuture<WriteResult> writeResult;
+	
+	
+	@Autowired
+	FacturaServicio facturaServicio;
+	
+	public FacturaServicioImpl(FacturaRepo facturaRepo, GarantiaRepo garantiaRepo, ModelRepo modelRepo,
+			Firestore firestore) {
+		this.facturaRepo = facturaRepo;
+		this.garantiaRepo = garantiaRepo;
+		this.modelRepo = modelRepo;
+		this.firestore = firestore;
+		this.writeResult = writeResult;
+	}
+
+
+	public void setFacturaServicio(FacturaServicio facturaServicio) {
+		this.facturaServicio = facturaServicio;
+	}
+
+	public void setWriteResult(ApiFuture<WriteResult> writeResult) {
+		this.writeResult = writeResult;
+	}
+
 
 	@Override
 	public Mono<FacturaResul> add(Factura model) throws Exception  {
@@ -54,6 +80,7 @@ public class FacturaServicioImpl implements FacturaServicio{
 
 			return facturaRepo.save(model)
 							.map(map -> {
+								System.out.println("paso1");
 								return new FacturaResul(map, modelo, garantia);
 							});
 		else
@@ -84,9 +111,9 @@ public class FacturaServicioImpl implements FacturaServicio{
 	@Override
 	public void delete(String id) throws Exception {
 
-		get(id);
+		facturaServicio.get(id);
 		
-		ApiFuture<WriteResult> writeResult = firestore.collection("Factura").document(id).delete();
+		writeResult = firestore.collection("Factura").document(id).delete();
 		
 	}
 
