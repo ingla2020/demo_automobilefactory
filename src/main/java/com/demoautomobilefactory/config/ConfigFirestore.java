@@ -24,18 +24,14 @@ public class ConfigFirestore {
     @Bean
     public Firestore firestore() throws IOException {
 
-    	/*
-    	FileInputStream serviceAccount =
-    			  new FileInputStream("src/main/resources/fir-testing-626a8-firebase-adminsdk-p84d2-2a61ce69b9.json");
     	
         FirestoreOptions firestoreOptions =
                 FirestoreOptions.getDefaultInstance().toBuilder()
                         .setProjectId(fire)
-                        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                         .build();
         return firestoreOptions.getService();
         
-*/
+
     	
 /*    	
     	// Use a service account
@@ -47,7 +43,7 @@ public class ConfigFirestore {
     	FirebaseApp.initializeApp(options);
 
     	Firestore db = FirestoreClient.getFirestore();    	
-  */  	
+----	
     	FileInputStream serviceAccount =
     			  new FileInputStream("src/main/resources/fir-testing-626a8-firebase-adminsdk-p84d2-2a61ce69b9.json");
 
@@ -61,7 +57,7 @@ public class ConfigFirestore {
     			Firestore db = FirestoreClient.getFirestore();
     			
     			return db;
-        
+        */    
         
         
     }	
